@@ -3,8 +3,11 @@
 
 #include <avr/io.h>
 
+#define PORTB 0x18
+#define DDRB 0x17
+
 #define SDA PB0
-#define SCL PB1
+#define SCL PB2
 
 #define tmp R20
 

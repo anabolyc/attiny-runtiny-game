@@ -11,6 +11,12 @@
 
 #include <avr/io.h>
 
+; #define EIMSK           0x13
+; #define EICRA           
+; #define GIMSK   0x3B
+#define PCIE    5
+#define PCINT1  1
+
 #define OLED_ADDR       0x78
 #define OLED_COMMANDS   0x00
 #define OLED_DATA       0x40
@@ -57,28 +63,29 @@ enemy_pos:
 .section .text
 .global main
 ; .global __do_copy_data
-.global INT0_vect
+.global PCINT0_vect
 
 
-INT0_vect:
+PCINT0_vect:
     ldi jump, JUMP_SPEED    ; Set the vertical jump speed to +4
     reti
 
 main:
 ; System initialization
-    ldi	    tmp, 0x03	; Set pin PB0 and PB1 as output for SDA abd SCL
+    ldi	    tmp, 0x05	; Set pin PB0 and PB2 as output for SDA abd SCL
     out	    DDRB, tmp	
-    ldi	    tmp, 0x04	; Set pull-up on Button Pin PB4
-    out	    PUEB, tmp	
+    ; ldi	    tmp, 0x04	; Set pull-up on Button Pin PB4
+    ; out	    PUEB, tmp	
 
 ; Button interrupt
     sei                     ; Enable interrupts
-    sbi     EIMSK, INT0     ; Enable External Interrupt Request 0
-    sbi     EICRA, ISC01    ; Interrupt activated on falling edge of PB2 (INT0)
+    ; sbi     GIMSK, 0x05     ; Enable External Interrupt Request 0
+    ; sbi     MCUCR, PCINT1    ; Interrupt activated on falling edge of PB2 (INT0)
+
 
 ; Sleep mode
-    ldi     tmp, 0x05       ; Enable sleep mode and select power down
-    out     SMCR, tmp       ; 
+    ; ldi     tmp, 0x05       ; Enable sleep mode and select power down
+    ; out     SMCR, tmp       ; 
 
 reset_game:
 

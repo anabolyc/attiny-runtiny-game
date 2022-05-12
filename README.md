@@ -23,7 +23,7 @@ When an obstacle hits the player the microcontroller goes into sleep mode. A new
 ## Make your own
 RunTiny needs just three components in its simplest form:
 - ATtiny10 (and breakout board)
-- OLED Display 128x31 (SSD1306)
+- OLED Display 128x32 (SSD1306)
 - Push-button
 
 plus some wires, a breadboard and a power source.
@@ -59,4 +59,7 @@ Use this command (mind the paths of avrdude and its config file):
 ```
 
 ## ATtiny85 and more
-The game should work on other AVR devices (i.e. ATtiny85) with minor changes (not tested yet though).
+The ATtiny85 uses pinout as follows:
+- PB0: SDA
+- PB2: SCL
+- PB1: Push-button (INT0)
